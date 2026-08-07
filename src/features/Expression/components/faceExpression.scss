@@ -1,0 +1,389 @@
+.face-card{
+
+    width:100%;
+    max-width:650px;
+
+    margin:50px auto;
+
+    padding:40px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+.face-card h1{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:30px;
+
+    font-size:34px;
+
+    flex-wrap:wrap;
+
+}
+
+.camera{
+
+    position:relative;
+
+    width:100%;
+
+    height:420px;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    background:black;
+
+    box-shadow:0 0 40px rgba(124,255,138,.15);
+
+}
+
+.camera video{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.camera--loading{
+
+    animation:pulse 1s infinite;
+
+}
+
+.scanner{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+.scanner-line{
+
+    position:absolute;
+
+    width:100%;
+
+    height:3px;
+
+    background:#7CFF8A;
+
+    animation:scan 2s linear infinite;
+
+    box-shadow:0 0 20px #7CFF8A;
+
+}
+
+.result{
+
+    margin:30px 0;
+
+}
+
+.result h2{
+
+    font-size:36px;
+
+    margin-bottom:15px;
+
+    color:#7CFF8A;
+
+    letter-spacing:2px;
+
+}
+
+.progress{
+
+    height:12px;
+
+    background:#222;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #7CFF8A,
+        #06B6D4
+    );
+
+}
+
+.result p{
+
+    margin-top:12px;
+
+    color:#aaa;
+
+    font-size:18px;
+
+}
+
+.detect{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin:auto;
+
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width:992px){
+
+.face-card{
+
+    max-width:540px;
+
+    margin:35px auto;
+
+    padding:28px;
+
+    border-radius:24px;
+
+}
+
+.face-card h1{
+
+    font-size:28px;
+
+    margin-bottom:22px;
+
+}
+
+.camera{
+
+    height:300px;
+
+    border-radius:20px;
+
+}
+
+.result{
+
+    margin:24px 0;
+
+}
+
+.result h2{
+
+    font-size:28px;
+
+}
+
+.result p{
+
+    font-size:16px;
+
+}
+
+.detect{
+
+    width:100%;
+
+}
+
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+.face-card{
+
+    width:100%;
+
+    max-width:100%;
+
+    margin:18px auto;
+
+    padding:18px;
+
+    border-radius:18px;
+
+}
+
+.face-card h1{
+
+    font-size:22px;
+
+    margin-bottom:18px;
+
+}
+
+.camera{
+
+    height:190px;
+
+    border-radius:16px;
+
+}
+
+.result{
+
+    margin:18px 0;
+
+}
+
+.result h2{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+}
+
+.progress{
+
+    height:8px;
+
+}
+
+.result p{
+
+    font-size:13px;
+
+    margin-top:8px;
+
+}
+
+.detect{
+
+    width:100%;
+
+    height:46px;
+
+    font-size:15px;
+
+}
+
+}
+
+/* ================= SMALL PHONES ================= */
+
+@media (max-width:480px){
+
+.face-card{
+
+    padding:14px;
+
+    border-radius:16px;
+    
+
+}
+
+.face-card h1{
+
+    font-size:20px;
+
+}
+
+.camera{
+
+    height:160px;
+
+}
+
+.result h2{
+
+    font-size:18px;
+
+}
+
+.progress{
+
+    height:6px;
+
+}
+
+.result p{
+
+    font-size:12px;
+
+}
+
+.detect{
+
+    height:42px;
+
+    font-size:14px;
+
+}
+
+}
+
+@keyframes scan{
+
+0%{
+
+    top:0;
+
+}
+
+100%{
+
+    top:100%;
+
+}
+
+}
+
+@keyframes pulse{
+
+0%{
+
+    box-shadow:0 0 25px rgba(124,255,138,.2);
+
+}
+
+50%{
+
+    box-shadow:0 0 60px rgba(124,255,138,.5);
+
+}
+
+100%{
+
+    box-shadow:0 0 25px rgba(124,255,138,.2);
+
+}
+
+}

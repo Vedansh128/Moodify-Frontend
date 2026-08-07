@@ -1,0 +1,51 @@
+.mood-card{
+
+width:400px;
+
+margin:30px auto;
+
+padding:30px;
+
+text-align:center;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:20px;
+
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width:768px){
+
+.mood-card{
+
+    width:100%;
+
+    max-width:420px;
+
+    margin:25px auto;
+
+    padding:24px 20px;
+
+}
+
+}
+
+/* ================= PHONE ================= */
+
+@media (max-width:480px){
+
+.mood-card{
+
+    width:100%;
+
+    padding:20px 16px;
+
+    border-radius:18px;
+
+}
+
+}

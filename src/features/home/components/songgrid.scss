@@ -1,0 +1,287 @@
+.song-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+
+    gap:30px;
+
+    margin-top:40px;
+
+}
+
+/* CARD */
+
+.song-card{
+
+    background:#191919;
+
+    border-radius:20px;
+
+    padding:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
+}
+
+.song-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.song-card img{
+
+    width:100%;
+
+    aspect-ratio:1;
+
+    object-fit:cover;
+
+    border-radius:14px;
+
+    margin-bottom:15px;
+
+    transition:.35s;
+
+}
+
+.song-card:hover img{
+
+    transform:scale(1.05);
+
+}
+
+/* TITLE */
+
+.song-card h3{
+
+    font-size:15px;
+
+    line-height:1.35;
+
+    color:white;
+
+    margin-bottom:10px;
+
+    display:-webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+    min-height:42px;
+
+}
+
+/* FOOTER */
+
+.song-card__footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:auto;
+
+}
+
+.song-card p{
+
+    flex:1;
+
+    font-size:13px;
+
+    color:#bdbdbd;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+/* HEART BUTTON */
+
+.favorite-btn{
+
+    width:38px;
+
+    height:38px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+}
+
+.favorite-btn svg{
+
+    font-size:24px;
+
+    color:white;
+
+    transition:.25s;
+
+}
+
+.favorite-btn.active svg{
+
+    color:#ff355d;
+
+}
+
+.favorite-btn:hover svg{
+
+    transform:scale(1.15);
+
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width:768px){
+
+.song-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+    margin-top:24px;
+
+}
+
+.song-card{
+
+    padding:14px;
+
+    border-radius:16px;
+
+}
+
+.song-card img{
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+
+}
+
+.song-card h3{
+
+    font-size:14px;
+
+    min-height:38px;
+
+}
+
+.song-card p{
+
+    font-size:12px;
+
+}
+
+.favorite-btn{
+
+    width:34px;
+
+    height:34px;
+
+}
+
+.favorite-btn svg{
+
+    font-size:20px;
+
+}
+
+}
+
+/* ================= SMALL PHONES ================= */
+
+@media (max-width: 435px){
+
+.song-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:10px;
+
+}
+
+.song-card{
+
+    padding:10px;
+
+}
+
+.song-card h3{
+
+    font-size:12px;
+
+    min-height:34px;
+
+}
+
+.song-card__footer{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:6px;
+
+}
+
+.song-card p{
+
+    width:100%;
+
+    font-size:11px;
+
+}
+
+.favorite-btn{
+
+    width:28px;
+
+    height:28px;
+
+    padding:0;
+
+}
+
+.favorite-btn svg{
+
+    font-size:18px;
+
+}
+
+}

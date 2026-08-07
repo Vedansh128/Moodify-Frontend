@@ -1,0 +1,337 @@
+.about{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:50px 20px 100px;
+
+color:white;
+
+}
+
+.hero{
+
+text-align:center;
+
+margin-bottom:70px;
+
+}
+
+.brain{
+
+font-size:70px;
+
+color:#7CFF8A;
+
+margin-bottom:20px;
+
+}
+
+.hero h1{
+
+font-size:60px;
+
+margin-bottom:30px;
+
+}
+
+.hero p{
+
+max-width:700px;
+
+margin:auto;
+
+font-size:18px;
+
+line-height:1.8;
+
+color:#cfcfcf;
+
+}
+
+.tech-section h2,
+
+.features h2{
+
+font-size:34px;
+
+margin-bottom:40px;
+
+text-align:center;
+
+}
+
+.tech-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:30px;
+
+}
+
+.tech-card{
+
+text-decoration:none;
+
+color:white;
+
+background:rgba(255,255,255,.05);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(124,255,138,.2);
+
+border-radius:20px;
+
+padding:35px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+transition:.3s;
+
+}
+
+.tech-card:hover{
+
+transform:translateY(-10px);
+
+border-color:#7CFF8A;
+
+box-shadow:0 15px 40px rgba(124,255,138,.25);
+
+}
+
+.tech-card .icon{
+
+font-size:70px;
+
+color:#7CFF8A;
+
+margin-bottom:20px;
+
+transition:.3s;
+
+}
+
+.tech-card:hover .icon{
+
+transform:rotate(8deg) scale(1.15);
+
+}
+
+.tech-card h3{
+
+font-size:20px;
+
+text-align:center;
+
+}
+
+.features{
+
+margin-top:90px;
+
+}
+
+.feature-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:20px;
+
+}
+
+.feature-grid div{
+
+padding:25px;
+
+background:rgba(255,255,255,.05);
+
+border-radius:16px;
+
+border:1px solid rgba(124,255,138,.15);
+
+text-align:center;
+
+font-size:18px;
+
+transition:.3s;
+
+}
+
+.feature-grid div:hover{
+
+background:rgba(124,255,138,.08);
+
+
+
+transform:translateY(-10px);
+
+border-color:#7CFF8A;
+
+box-shadow:0 15px 40px rgba(124,255,138,.25);
+
+}
+
+footer{
+
+    position: relative;
+
+    margin-top: 20px;
+
+    font-family:cursive;
+    padding-top:65px ;
+
+    text-align:center;
+
+    font-size:35px;
+    font-weight: 900;
+    color:#ffffff;
+    font-style: italic;
+    font-weight:600;
+
+}
+
+p{
+       color:#cfcfcf;
+
+    margin-top:12px;
+
+    font-size:17px;
+
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width:768px){
+
+.about{
+
+    padding:30px 16px 80px;
+
+}
+
+.hero{
+
+    margin-bottom:50px;
+
+}
+
+.brain{
+
+    font-size:55px;
+
+}
+
+.hero h1{
+
+    font-size:42px;
+
+}
+
+.hero p{
+
+    font-size:16px;
+
+    line-height:1.7;
+
+}
+
+.tech-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+}
+
+.tech-card{
+
+    padding:24px;
+
+}
+
+.tech-card .icon{
+
+    font-size:55px;
+
+}
+
+.feature-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+footer{
+
+    font-size:28px;
+
+}
+
+}
+
+/* ================= PHONE ================= */
+
+@media (max-width:480px){
+
+.hero h1{
+
+    font-size:34px;
+
+}
+
+.brain{
+
+    font-size:45px;
+
+}
+
+.tech-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+.tech-card{
+
+    padding:22px;
+
+}
+
+.tech-card .icon{
+
+    font-size:48px;
+
+}
+
+.tech-card h3{
+
+    font-size:18px;
+
+}
+
+footer{
+
+    font-size:24px;
+
+}
+
+p{
+
+    font-size:15px;
+
+}
+
+}

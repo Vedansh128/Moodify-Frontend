@@ -1,0 +1,125 @@
+@use "./button.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+html,
+body,
+#root{
+
+    width:100%;
+
+    height:100%;
+
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    color:#fff;
+
+    overflow-x:hidden;
+
+    background:
+    radial-gradient(circle at top left,#73fffa 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#06aed4 0%,transparent 30%),
+    #080810;
+
+}
+
+a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+}
+
+button{
+
+    font-family:inherit;
+
+}
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#111;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(#3aedc9,#06b6d4);
+
+    border-radius:20px;
+
+}
+
+::selection{
+
+    background:#3aede4;
+
+    color:white;
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:768px){
+
+html{
+
+    font-size:15px;
+
+}
+
+body{
+
+    overflow-x:hidden;
+
+}
+
+}
+
+@media (max-width:480px){
+
+html{
+
+    font-size:14px;
+
+}
+
+body{
+
+    overflow-x:hidden;
+
+}
+
+}

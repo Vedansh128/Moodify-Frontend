@@ -1,0 +1,305 @@
+.navbar {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 40px;
+
+    margin: 20px;
+
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(18px);
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    position: relative;
+
+    z-index: 1000;
+
+}
+
+/* ================= LOGO ================= */
+
+.navbar__logo {
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    color: #7CFF8A;
+
+    cursor: pointer;
+
+}
+
+/* ================= LINKS ================= */
+
+.navbar__links {
+
+    display: flex;
+    gap: 15px;
+
+}
+
+.navbar__links button {
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    padding: 10px 18px;
+
+    border-radius: 12px;
+
+    transition: .25s;
+
+}
+
+.navbar__links button:hover {
+
+    background: rgba(124,255,138,.12);
+
+    color: #7CFF8A;
+
+}
+
+/* ================= RIGHT ================= */
+
+.navbar__right {
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+.navbar__username {
+
+    color: white;
+
+    font-weight: 600;
+
+}
+
+.navbar__logout {
+
+    background: #7CFF8A;
+
+    color: #111;
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.navbar__logout:hover {
+
+    transform: translateY(-2px);
+
+    background: #9dffac;
+
+}
+
+/* ================= HAMBURGER ================= */
+
+.menu-btn {
+
+    display: none;
+
+    width: 44px;
+    height: 44px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #7CFF8A;
+
+    cursor: pointer;
+
+    font-size: 24px;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* ================= MOBILE DRAWER ================= */
+
+.mobile-menu {
+
+    position: fixed;
+
+    top: 0;
+    left: -300px;
+
+    width: 270px;
+    height: 100vh;
+
+    background: #151515;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 30px 22px;
+
+    gap: 12px;
+
+    transition: left .35s ease;
+
+    z-index: 3000;
+
+    border-right: 1px solid rgba(124,255,138,.15);
+
+    box-shadow: 8px 0 35px rgba(0,0,0,.45);
+
+}
+
+.mobile-menu.open {
+
+    left: 0;
+
+}
+
+/* Close button */
+
+.close-menu {
+
+    align-self: flex-end;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.08);
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    margin-bottom: 20px;
+
+    transition: .25s;
+
+}
+
+.close-menu:hover {
+
+    background: #ff355d;
+
+}
+
+/* Drawer buttons */
+
+.mobile-menu button {
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    font-size: 17px;
+
+    text-align: left;
+
+    padding: 14px 12px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.mobile-menu button:hover {
+
+    background: rgba(124,255,138,.12);
+
+    color: #7CFF8A;
+
+}
+
+/* ================= OVERLAY ================= */
+
+.mobile-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.55);
+
+    backdrop-filter: blur(3px);
+
+    z-index: 2500;
+
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px) {
+
+    .navbar {
+
+        margin: 12px;
+
+        padding: 16px 18px;
+
+    }
+
+    .navbar__logo {
+
+        font-size: 24px;
+
+    }
+
+    .navbar__links {
+
+        display: none;
+
+    }
+
+    .navbar__right {
+
+        display: none;
+
+    }
+
+    .menu-btn {
+
+        display: flex;
+
+    }
+
+}

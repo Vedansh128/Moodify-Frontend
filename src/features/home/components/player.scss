@@ -1,0 +1,468 @@
+.player {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    height: 180px;
+
+    transform: translateX(-50%);
+
+    width: min(1100px, calc(100% - 40px));
+
+    background: rgba(22, 22, 22, .95);
+
+    border: 1px solid rgba(124, 255, 138, .15);
+
+    backdrop-filter: blur(18px);
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 18px 22px;
+
+    z-index: 1000;
+
+    color: white;
+
+    box-shadow: 0 10px 35px rgba(0,0,0,.4);
+
+    animation: slideUp .35s ease;
+
+}
+
+.close-player{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.25s;
+
+}
+
+.close-player:hover{
+
+    background:#ff355d;
+
+}
+
+.close-player svg{
+
+    font-size:15px;
+
+}
+
+/* LEFT */
+
+.player__left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    width:320px;
+
+}
+
+.player__poster{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:12px;
+
+    object-fit:cover;
+
+}
+
+.player__left h3{
+
+    margin:0;
+
+    font-size:17px;
+
+}
+
+.player__left p{
+
+    margin:6px 0;
+
+    color:#bdbdbd;
+
+    font-size:14px;
+
+}
+
+.player__left span{
+
+    display:inline-block;
+
+    margin-top:6px;
+
+    background:#7CFF8A;
+
+    color:#111;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    text-transform:capitalize;
+
+}
+
+/* CENTER */
+
+.player__center{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.player__center iframe{
+
+    width:260px;
+
+    height:140px;
+
+    border:none;
+
+    border-radius:14px;
+
+}
+
+.player__center > div{
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+}
+
+/* RIGHT */
+
+.player__right{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:14px;
+
+}
+
+/* COMMON BUTTON */
+
+.player-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:.25s;
+
+}
+
+.player-btn:hover{
+
+    transform:scale(1.08);
+
+    background:rgba(124,255,138,.18);
+
+}
+
+/* PLAY BUTTON */
+
+.play-btn{
+
+    width:60px;
+
+    height:60px;
+
+    background:#7CFF8A;
+
+    color:#111;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    box-shadow:0 0 18px rgba(124,255,138,.35);
+
+}
+
+.play-btn:hover{
+
+    background:#69ef79;
+
+}
+
+/* HEART BUTTON */
+
+/* HEART BUTTON */
+.favorite-btn-player {
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favorite-btn-player svg {
+    font-size: 28px;
+    color: #ffffff; /* Use color instead of stroke/fill */
+    transition: .25s;
+}
+
+/* When active, change the color to red */
+.favorite-btn-player.active svg {
+    color: #ff355d; 
+}
+
+.favorite-btn-player:hover {
+    transform: scale(1.08);
+}
+
+/* ================= MOBILE PLAYER ================= */
+
+@media (max-width:768px){
+
+.player{
+
+    height:auto;
+
+    min-height:105px;
+
+    padding:14px 16px;
+
+    bottom:10px;
+
+    left:10px;
+
+    right:10px;
+
+    width:auto;
+
+    transform:none;
+
+    border-radius:18px;
+
+    display:flex;
+
+    flex-direction:row;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+/* Hide YouTube player */
+
+.player__center{
+
+    display:none;
+
+}
+
+/* LEFT */
+
+.player__left{
+
+    width:auto;
+
+    flex:1;
+
+    gap:12px;
+
+}
+
+.player__poster{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:12px;
+
+}
+
+.player__left h3{
+
+    font-size:15px;
+
+    margin-bottom:4px;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+
+    max-width:130px;
+
+}
+
+.player__left p{
+
+    font-size:12px;
+
+    margin:2px 0;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+
+    max-width:130px;
+
+}
+
+.player__left span{
+
+    font-size:10px;
+
+    padding:3px 10px;
+
+}
+
+/* Controls */
+
+.player__right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-left:12px;
+
+}
+
+/* Small buttons */
+
+.player-btn{
+
+    width:30px;
+
+    height:30px;
+
+    font-size:15px;
+
+}
+
+/* Play button */
+
+.play-btn{
+
+    width:38px;
+
+    height:38px;
+
+    font-size:15px;
+
+}
+
+/* Heart */
+
+.favorite-btn-player{
+
+    width:36px;
+
+    height:36px;
+
+}
+
+.favorite-btn-player svg{
+
+    font-size:20px;
+
+}
+
+/* Close */
+
+.close-player{
+
+    width:28px;
+
+    height:28px;
+
+    top:8px;
+
+    right:8px;
+
+}
+
+.close-player svg{
+
+    font-size:12px;
+
+}
+
+}

@@ -1,0 +1,165 @@
+.search-bar{
+
+    display:flex;
+
+    flex-direction:row;
+
+    align-items:center;
+
+    width:100%;
+
+    max-width:1060px;
+
+    height:52px;
+
+    margin:20px auto;
+
+    background:#1f1f1f;
+
+    border:1px solid #7CFF8A;
+
+    border-radius:40px;
+
+    overflow:hidden;
+
+}
+
+.search-icon{
+
+    margin:0 16px;
+
+    color:#7CFF8A;
+
+    font-size:18px;
+
+}
+
+.search-bar input{
+
+    flex:1;
+
+    height:100%;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+    font-size:16px;
+
+    padding-right:10px;
+
+}
+
+.search-bar input::placeholder{
+
+    color:#8d8d8d;
+
+}
+
+.search-bar button{
+
+    width:110px;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    background:#7CFF8A;
+
+    color:#111;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.search-bar button:hover{
+
+    background:#69ef79;
+
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:768px){
+
+.search-bar{
+
+    max-width:100%;
+
+    margin:18px auto;
+
+}
+
+}
+
+/* ================= PHONE ================= */
+
+@media(max-width:480px){
+
+.search-bar{
+
+    height:auto;
+
+    padding:10px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.search-icon{
+
+    display:none;
+
+}
+
+.search-bar input{
+
+    width:100%;
+
+    height:46px;
+
+    padding:0 14px;
+
+    border-radius:12px;
+
+    background:#2b2b2b;
+
+    font-size:15px;
+
+}
+
+.search-bar button{
+
+    width:100%;
+
+    height:46px;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+}
+
+}

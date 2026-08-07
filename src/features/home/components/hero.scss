@@ -1,0 +1,73 @@
+.hero{
+
+    text-align:center;
+
+    margin:70px auto;
+
+    max-width:900px;
+
+}
+
+.hero h1{
+
+    font-size:62px;
+
+    font-weight:800;
+
+    line-height:1.1;
+
+}
+
+.hero h1 span{
+
+    background:linear-gradient(
+        90deg,
+        #7CFF8A,
+        #06B6D4
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.hero p{
+
+    margin-top:20px;
+
+    font-size:20px;
+
+    color:#b9b9b9;
+
+    line-height:1.7;
+
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:768px){
+
+.hero{
+
+    margin:20px auto;
+
+    padding:0;
+
+}
+
+.hero h1{
+
+    font-size:34px;
+
+}
+
+.hero p{
+
+    font-size:15px;
+
+    max-width:100%;
+
+}
+
+}
