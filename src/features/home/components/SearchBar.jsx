@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useSong } from "../hooks/useSong";
+import { useSong } from "../hooks/useSong.js";
 import "./searchbar.scss";
 
 export default function SearchBar() {

@@ -1,13 +1,13 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import FaceExpression from "../../Expression/components/FaceExpression";
+import Navbar from "../components/Navbar.jsx";
+import Hero from "../components/Hero.jsx";
+import FaceExpression from "../../Expression/components/FaceExpression.jsx";
 import MoodCard from "../components/MoodCard.jsx";
-import SongGrid from "../components/SongGrid";
-import Player from "../components/Player";
-import SearchBar from "../components/SearchBar";
-import { useSong } from "../hooks/useSong";
+import SongGrid from "../components/SongGrid.jsx";
+import Player from "../components/Player.jsx";
+import SearchBar from "../components/SearchBar.jsx";
+import { useSong } from "../hooks/useSong.js";
 import { useEffect } from "react";
-import { useAuth } from "../../auth/hooks/useAuth";
+import { useAuth } from "../../auth/hooks/useAuth.js";
 import "./home.scss";
 
 const Home = () => {
