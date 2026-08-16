@@ -12,15 +12,17 @@ import "./player.scss";
 
 export default function Player() {
 
-    const {
-        songs,
-        currentSong,
-        favorites,
-        setCurrentSong,
-        handleFavorite,
-        showPlayer,
-        setShowPlayer,
-    } = useSong();
+const {
+    songs,
+    currentSong,
+    favorites,
+    setCurrentSong,
+    handleFavorite,
+    showPlayer,
+    setShowPlayer,
+    currentTime,
+    setCurrentTime,
+} = useSong();
 
     if (!currentSong || !showPlayer) return null;
 
@@ -28,6 +30,25 @@ export default function Player() {
 
     const [playing, setPlaying] = useState(false);
 
+    useEffect(() => {
+
+    if (!playerRef.current) return;
+
+    const interval = setInterval(() => {
+
+        if (playerRef.current && playing) {
+
+            const time = playerRef.current.getCurrentTime();
+
+            setCurrentTime(time);
+
+        }
+
+    }, 1000);
+
+    return () => clearInterval(interval);
+
+}, [playing, setCurrentTime]);
 
     if (!currentSong) return null;
 
@@ -39,18 +60,25 @@ export default function Player() {
         height: "190",
         width: "340",
         playerVars: {
-            autoplay: 1,
+            autoplay: 0,
             controls: 1,      // keep YouTube controls
             rel: 0,
             modestbranding: 1,
         },
     };
 
-    function onReady(event) {
+function onReady(event) {
 
-        playerRef.current = event.target;
+    playerRef.current = event.target;
+
+    // Restore previous playback position
+    if (currentTime > 0) {
+
+        event.target.seekTo(currentTime, true);
 
     }
+
+}
 
     function onStateChange(event) {
 
@@ -93,40 +121,44 @@ export default function Player() {
 
     }
 
-    function nextSong() {
+function nextSong() {
 
-        if (!songs.length) return;
+    if (!songs.length) return;
 
-        const index = songs.findIndex(
-            s => s.videoId === currentSong.videoId
-        );
+    const index = songs.findIndex(
+        s => s.videoId === currentSong.videoId
+    );
 
-        const nextIndex =
-            (index + 1) % songs.length;
+    const nextIndex =
+        (index + 1) % songs.length;
 
-        setCurrentSong(
-            songs[nextIndex]
-        );
+    setCurrentTime(0);
 
-    }
+    setCurrentSong(
+        songs[nextIndex]
+    );
 
-    function previousSong() {
+}
 
-        if (!songs.length) return;
+function previousSong() {
 
-        const index = songs.findIndex(
-            s => s.videoId === currentSong.videoId
-        );
+    if (!songs.length) return;
 
-        const prevIndex =
-            (index - 1 + songs.length) %
-            songs.length;
+    const index = songs.findIndex(
+        s => s.videoId === currentSong.videoId
+    );
 
-        setCurrentSong(
-            songs[prevIndex]
-        );
+    const prevIndex =
+        (index - 1 + songs.length) %
+        songs.length;
 
-    }
+    setCurrentTime(0);
+
+    setCurrentSong(
+        songs[prevIndex]
+    );
+
+}
 
     return (
 

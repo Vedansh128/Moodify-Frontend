@@ -10,9 +10,13 @@ export const SongContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [showPlayer, setShowPlayer] = useState(false);
 
+    // Store the current playback position
+    const [currentTime, setCurrentTime] = useState(0);
+
     return (
         <SongContext.Provider
             value={{
+
                 songs,
                 setSongs,
 
@@ -27,6 +31,10 @@ export const SongContextProvider = ({ children }) => {
 
                 showPlayer,
                 setShowPlayer,
+
+                currentTime,
+                setCurrentTime,
+
             }}
         >
             {children}
