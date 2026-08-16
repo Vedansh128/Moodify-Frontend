@@ -12,98 +12,182 @@ import "./player.scss";
 
 export default function Player() {
 
-const {
-    songs,
-    currentSong,
-    favorites,
-    setCurrentSong,
-    handleFavorite,
-    showPlayer,
-    setShowPlayer,
-    currentTime,
-    setCurrentTime,
-} = useSong();
-
-    if (!currentSong || !showPlayer) return null;
+    const {
+        songs,
+        currentSong,
+        favorites,
+        setCurrentSong,
+        handleFavorite,
+        showPlayer,
+        setShowPlayer,
+        currentTime,
+        setCurrentTime,
+    } = useSong();
 
     const playerRef = useRef(null);
+    const intervalRef = useRef(null);
 
     const [playing, setPlaying] = useState(false);
 
-    useEffect(() => {
+    /*
+     * Start tracking playback time whenever
+     * the YouTube player becomes ready.
+     */
+    function startTimeTracking() {
 
-    if (!playerRef.current) return;
-
-    const interval = setInterval(() => {
-
-        if (playerRef.current && playing) {
-
-            const time = playerRef.current.getCurrentTime();
-
-            setCurrentTime(time);
-
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
         }
 
-    }, 1000);
+        intervalRef.current = setInterval(() => {
 
-    return () => clearInterval(interval);
+            if (
+                playerRef.current &&
+                playing
+            ) {
 
-}, [playing, setCurrentTime]);
+                const time =
+                    playerRef.current.getCurrentTime();
 
-    if (!currentSong) return null;
+                setCurrentTime(time);
+
+            }
+
+        }, 500);
+
+    }
+
+    /*
+     * Clean up the timer when Player unmounts.
+     */
+    useEffect(() => {
+
+        return () => {
+
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+
+        };
+
+    }, []);
+
+    /*
+     * Save the latest position when the player
+     * is about to disappear.
+     */
+    useEffect(() => {
+
+        return () => {
+
+            if (playerRef.current) {
+
+                const time =
+                    playerRef.current.getCurrentTime();
+
+                setCurrentTime(time);
+
+            }
+
+        };
+
+    }, [setCurrentTime]);
+
+
+    /*
+     * IMPORTANT:
+     * Hooks are above the conditional return.
+     */
+    if (!currentSong || !showPlayer) {
+        return null;
+    }
+
 
     const liked = favorites.some(
         fav => fav.videoId === currentSong.videoId
     );
 
+
     const opts = {
+
         height: "190",
         width: "340",
+
         playerVars: {
-            autoplay: 0,
-            controls: 1,      // keep YouTube controls
+
+            autoplay: 1,
+            controls: 1,
             rel: 0,
             modestbranding: 1,
+
         },
+
     };
 
-function onReady(event) {
 
-    playerRef.current = event.target;
+    function onReady(event) {
 
-    // Restore previous playback position
-    if (currentTime > 0) {
+        playerRef.current = event.target;
 
-        event.target.seekTo(currentTime, true);
+        /*
+         * Restore previous playback position.
+         */
+        if (currentTime > 0) {
+
+            event.target.seekTo(
+                currentTime,
+                true
+            );
+
+        }
+
+        /*
+         * Start tracking playback.
+         */
+        startTimeTracking();
 
     }
 
-}
 
     function onStateChange(event) {
 
-        // 1 = Playing
+        // Playing
         if (event.data === 1) {
 
             setPlaying(true);
 
         }
 
-        // 2 = Paused
+        // Paused
         else if (event.data === 2) {
 
             setPlaying(false);
 
+            /*
+             * Immediately save position when paused.
+             */
+            if (playerRef.current) {
+
+                const time =
+                    playerRef.current.getCurrentTime();
+
+                setCurrentTime(time);
+
+            }
+
         }
 
-        // 0 = Ended
+        // Ended
         else if (event.data === 0) {
 
             setPlaying(false);
 
+            setCurrentTime(0);
+
         }
 
     }
+
 
     function togglePlay() {
 
@@ -121,54 +205,74 @@ function onReady(event) {
 
     }
 
-function nextSong() {
 
-    if (!songs.length) return;
+    function nextSong() {
 
-    const index = songs.findIndex(
-        s => s.videoId === currentSong.videoId
-    );
+        if (!songs.length) return;
 
-    const nextIndex =
-        (index + 1) % songs.length;
+        /*
+         * Reset position for the new song.
+         */
+        setCurrentTime(0);
 
-    setCurrentTime(0);
+        const index =
+            songs.findIndex(
+                s =>
+                    s.videoId ===
+                    currentSong.videoId
+            );
 
-    setCurrentSong(
-        songs[nextIndex]
-    );
+        const nextIndex =
+            (index + 1) % songs.length;
 
-}
+        setCurrentSong(
+            songs[nextIndex]
+        );
 
-function previousSong() {
+    }
 
-    if (!songs.length) return;
 
-    const index = songs.findIndex(
-        s => s.videoId === currentSong.videoId
-    );
+    function previousSong() {
 
-    const prevIndex =
-        (index - 1 + songs.length) %
-        songs.length;
+        if (!songs.length) return;
 
-    setCurrentTime(0);
+        /*
+         * Reset position for the new song.
+         */
+        setCurrentTime(0);
 
-    setCurrentSong(
-        songs[prevIndex]
-    );
+        const index =
+            songs.findIndex(
+                s =>
+                    s.videoId ===
+                    currentSong.videoId
+            );
 
-}
+        const prevIndex =
+            (index - 1 + songs.length) %
+            songs.length;
+
+        setCurrentSong(
+            songs[prevIndex]
+        );
+
+    }
+
 
     return (
 
         <div className="player">
 
-                 <button
-                 className="close-player"
-                 onClick={() => setShowPlayer(false)} >
-              <FaTimes />
-             </button>
+            <button
+                className="close-player"
+                onClick={() =>
+                    setShowPlayer(false)
+                }
+            >
+                <FaTimes />
+            </button>
+
+
             <div className="player__left">
 
                 <img
@@ -179,27 +283,35 @@ function previousSong() {
 
                 <div>
 
-                    <h3>{currentSong.title}</h3>
+                    <h3>
+                        {currentSong.title}
+                    </h3>
 
-                    <p>{currentSong.artist}</p>
+                    <p>
+                        {currentSong.artist}
+                    </p>
 
-                    <span>{currentSong.mood}</span>
+                    <span>
+                        {currentSong.mood}
+                    </span>
 
                 </div>
 
             </div>
 
+
             <div className="player__center">
 
-              <YouTube
-    key={currentSong.videoId}
-    videoId={currentSong.videoId}
-    opts={opts}
-    onReady={onReady}
-    onStateChange={onStateChange}
-                   />
+                <YouTube
+                    key={currentSong.videoId}
+                    videoId={currentSong.videoId}
+                    opts={opts}
+                    onReady={onReady}
+                    onStateChange={onStateChange}
+                />
 
             </div>
+
 
             <div className="player__right">
 
@@ -210,16 +322,20 @@ function previousSong() {
                     ⏮
                 </button>
 
+
                 <button
                     className="player-btn play-btn"
                     onClick={togglePlay}
                 >
+
                     {playing ? (
                         <FaPause />
                     ) : (
                         <FaPlay />
                     )}
+
                 </button>
+
 
                 <button
                     className="player-btn"
@@ -227,6 +343,7 @@ function previousSong() {
                 >
                     ⏭
                 </button>
+
 
                 <button
                     className={`favorite-btn-player ${
@@ -236,11 +353,13 @@ function previousSong() {
                         handleFavorite(currentSong)
                     }
                 >
+
                     {liked ? (
                         <FaHeart />
                     ) : (
                         <FaRegHeart />
                     )}
+
                 </button>
 
             </div>
