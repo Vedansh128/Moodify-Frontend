@@ -8,18 +8,22 @@ import {
 
 export const useSong = () => {
 
-    const {
-        songs,
-        setSongs,
-        currentSong,
-        setCurrentSong,
-        favorites,
-        setFavorites,
-        loading,
-        setLoading,
-        showPlayer,
-        setShowPlayer,
-    } = useContext(SongContext);
+const {
+    songs,
+    setSongs,
+    currentSong,
+    setCurrentSong,
+    favorites,
+    setFavorites,
+    loading,
+    setLoading,
+    showPlayer,
+    setShowPlayer,
+
+    currentTime,
+    setCurrentTime,
+
+} = useContext(SongContext);
 
    async function handleGetSong(result) {
 
@@ -131,18 +135,22 @@ export const useSong = () => {
 
 }
 
-    return {
-        loading,
-        songs,
-        currentSong,
-        showPlayer,
-        setShowPlayer,
-        favorites,
-        handleGetSong,
-        handleFavorite,
-        loadFavorites,
-        setCurrentSong,
-        handleSearch,
-    };
+return {
+    loading,
+    songs,
+    currentSong,
+    showPlayer,
+    setShowPlayer,
+    favorites,
+
+    currentTime,
+    setCurrentTime,
+
+    handleGetSong,
+    handleFavorite,
+    loadFavorites,
+    setCurrentSong,
+    handleSearch,
+};
 
 };
