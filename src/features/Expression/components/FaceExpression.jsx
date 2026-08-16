@@ -15,52 +15,68 @@ export default function FaceExpression({ onClick = () => {} }) {
     const [confidence, setConfidence] = useState(0);
     const [cameraReady, setCameraReady] = useState(false);
 
-    async function handleDetect() {
+   async function handleDetect() {
 
-        try {
+    try {
 
-            setLoading(true);
+        setLoading(true);
 
-            if (!cameraReady) {
+        if (!cameraReady) {
 
-                await init({
-                    landmarkerRef,
-                    videoRef,
-                    streamRef,
-                });
-
-                setCameraReady(true);
-
-            }
-
-            const result = await detect({
+            await init({
                 landmarkerRef,
                 videoRef,
+                streamRef,
             });
 
-            setExpression(result.mood);
-            setConfidence(result.confidence);
-
-            onClick(result.mood);
-
-            if (streamRef.current) {
-                streamRef.current.getTracks().forEach(track => track.stop());
-            }
-
-            videoRef.current.srcObject = null;
-            setCameraReady(false);
-
-        } catch (err) {
-
-            console.log(err);
-
-        } finally {
-
-            setLoading(false);
+            setCameraReady(true);
 
         }
 
+        const result = await detect({
+            landmarkerRef,
+            videoRef,
+        });
+
+        if (!result.faceDetected) {
+
+            setExpression("No Face Detected");
+            setConfidence(0);
+
+            return;
+        }
+
+        setExpression(result.mood);
+        setConfidence(result.confidence);
+
+        onClick(result.mood);
+
+    } catch (err) {
+
+        console.log(err);
+
+    } finally {
+
+        if (streamRef.current) {
+
+            streamRef.current
+                .getTracks()
+                .forEach(track => track.stop());
+
+        }
+
+        if (videoRef.current) {
+
+            videoRef.current.srcObject = null;
+
+        }
+
+        setCameraReady(false);
+        setLoading(false);
+
     }
+
+}
 
     return (
 

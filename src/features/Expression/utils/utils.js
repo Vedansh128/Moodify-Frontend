@@ -96,7 +96,7 @@ export async function detect({
 }) {
 
     const samples = [];
-
+    let faceDetected = false
     const start = performance.now();
 
     while (performance.now() - start < 1000) {
@@ -107,10 +107,12 @@ export async function detect({
                 performance.now()
             );
 
-        if (results.faceBlendshapes?.length) {
+      if (results.faceBlendshapes?.length) {
 
-            const blend =
-                results.faceBlendshapes[0].categories;
+    faceDetected = true;
+
+    const blend =
+        results.faceBlendshapes[0].categories;
 
             samples.push({
 
@@ -154,17 +156,15 @@ export async function detect({
 
     }
 
-    if (!samples.length) {
+ if (!faceDetected) {
 
-        return {
+    return {
+        faceDetected: false,
+        mood: "No Face Detected",
+        confidence: 0,
+    };
 
-            mood: "neutral",
-
-            confidence: 0,
-
-        };
-
-    }
+}
 
     const avg = key =>
         samples.reduce(
@@ -291,8 +291,8 @@ else if (
 
     return {
 
+       faceDetected: true,
         mood,
-
         confidence,
 
     };
