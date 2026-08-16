@@ -1,161 +1,250 @@
 import { useContext } from "react";
+
 import { SongContext } from "../song.context";
-import { getSong, searchSong } from "../service/song.api";
+
+import {
+    getSong,
+    searchSong
+} from "../service/song.api";
+
 import {
     getFavorites,
     toggleFavorite,
 } from "../../user/services/user.api";
 
+
 export const useSong = () => {
 
-const {
-    songs,
-    setSongs,
-    currentSong,
-    setCurrentSong,
-    favorites,
-    setFavorites,
-    loading,
-    setLoading,
-    showPlayer,
-    setShowPlayer,
-    currentTime,
-    setCurrentTime,
+    const {
 
-    wasPlaying,
-    setWasPlaying,
+        songs,
+        setSongs,
 
-} = useContext(SongContext);
+        currentSong,
+        setCurrentSong,
 
-   async function handleGetSong(result) {
+        favorites,
+        setFavorites,
 
-    try {
+        loading,
+        setLoading,
 
-        setLoading(true);
+        showPlayer,
+        setShowPlayer,
 
-        const mood =
-            typeof result === "string"
-                ? result
-                : result.mood;
+        currentTime,
+        setCurrentTime,
 
-        console.log("Detected Mood:", mood);
+        wasPlaying,
+        setWasPlaying,
 
-        const response = await getSong({ mood });
+    } = useContext(SongContext);
 
-        console.log("Backend Response:", response);
 
-        const fetchedSongs = response.data || [];
 
-        setSongs(fetchedSongs);
+    async function handleGetSong(result) {
 
-        if (fetchedSongs.length > 0) {
-            setCurrentSong(fetchedSongs[0]);
-            setShowPlayer(true);
-            window.scrollTo({
+        try {
 
-       top: document.body.scrollHeight,
+            setLoading(true);
 
-        behavior: "smooth",
+            const mood =
+                typeof result === "string"
+                    ? result
+                    : result.mood;
 
-});
+            console.log("Detected Mood:", mood);
+
+            const response = await getSong({ mood });
+
+            console.log("Backend Response:", response);
+
+            const fetchedSongs = response.data || [];
+
+            setSongs(fetchedSongs);
+
+
+            if (fetchedSongs.length > 0) {
+
+             
+
+                setCurrentTime(0);
+
+           
+
+                setWasPlaying(true);
+
+                setCurrentSong(fetchedSongs[0]);
+
+                setShowPlayer(true);
+
+
+                window.scrollTo({
+
+                    top: document.body.scrollHeight,
+
+                    behavior: "smooth",
+
+                });
+
+            }
+
         }
 
-    } catch (err) {
+        catch (err) {
 
-        console.error("Song Fetch Error:", err);
+            console.error(
+                "Song Fetch Error:",
+                err
+            );
 
-    } finally {
+        }
 
-        setLoading(false);
+        finally {
 
-    }
+            setLoading(false);
 
-}
-
-  async function loadFavorites(){
-
-    try{
-
-        const data=await getFavorites();
-
-        setFavorites(data.favoriteSongs || []);
+        }
 
     }
 
-    catch(err){
 
-        console.log(err);
+
+    async function loadFavorites() {
+
+        try {
+
+            const data = await getFavorites();
+
+            setFavorites(
+                data.favoriteSongs || []
+            );
+
+        }
+
+        catch (err) {
+
+            console.log(
+                "Favorites Error:",
+                err
+            );
+
+        }
 
     }
 
-}
 
-    async function handleFavorite(song){
 
-    try{
+    async function handleFavorite(song) {
 
-        const data=await toggleFavorite(song);
+        try {
 
-        setFavorites(data.favoriteSongs);
+            const data =
+                await toggleFavorite(song);
+
+            setFavorites(
+                data.favoriteSongs
+            );
+
+        }
+
+        catch (err) {
+
+            console.log(
+                "Favorite Error:",
+                err
+            );
+
+        }
 
     }
 
-    catch(err){
 
-        console.log(err);
-
-    }
-
-}
 
     async function handleSearch(query) {
 
-    if (!query.trim()) return;
+        if (!query.trim()) return;
 
-    try {
 
-        setLoading(true);
+        try {
 
-        const data = await searchSong(query);
+            setLoading(true);
 
-        setSongs(data.data);
+            const data =
+                await searchSong(query);
 
-        if (data.data.length) {
-            setCurrentSong(data.data[0]);
-            setShowPlayer(true)
+
+            setSongs(data.data);
+
+
+            if (data.data.length) {
+
+            
+
+                setCurrentTime(0);
+
+                setWasPlaying(true);
+
+                setCurrentSong(
+                    data.data[0]
+                );
+
+                setShowPlayer(true);
+
+            }
+
         }
 
-    } catch (err) {
+        catch (err) {
 
-        console.error(err);
+            console.error(
+                "Search Error:",
+                err
+            );
 
-    } finally {
+        }
 
-        setLoading(false);
+        finally {
+
+            setLoading(false);
+
+        }
 
     }
 
-}
 
-return {
-    loading,
-    songs,
-    currentSong,
-    showPlayer,
-    setShowPlayer,
-    favorites,
+    return {
 
-    currentTime,
-    setCurrentTime,
+        loading,
 
-    wasPlaying,
-    setWasPlaying,
+        songs,
 
-    handleGetSong,
-    handleFavorite,
-    loadFavorites,
-    setCurrentSong,
-    handleSearch,
-};
+        currentSong,
+
+        showPlayer,
+
+        setShowPlayer,
+
+        favorites,
+
+
+        currentTime,
+        setCurrentTime,
+
+        wasPlaying,
+        setWasPlaying,
+
+
+        handleGetSong,
+
+        handleFavorite,
+
+        loadFavorites,
+
+        setCurrentSong,
+
+        handleSearch,
+
+    };
 
 };
