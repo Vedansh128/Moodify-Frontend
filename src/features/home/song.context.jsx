@@ -9,31 +9,36 @@ export const SongContextProvider = ({ children }) => {
     const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showPlayer, setShowPlayer] = useState(false);
+    
 
     // Store the current playback position
     const [currentTime, setCurrentTime] = useState(0);
+    const [wasPlaying, setWasPlaying] = useState(false);
 
     return (
         <SongContext.Provider
-            value={{
+        
+value={{
+    songs,
+    setSongs,
 
-                songs,
-                setSongs,
+    currentSong,
+    setCurrentSong,
 
-                currentSong,
-                setCurrentSong,
+    favorites,
+    setFavorites,
 
-                favorites,
-                setFavorites,
+    loading,
+    setLoading,
 
-                loading,
-                setLoading,
+    showPlayer,
+    setShowPlayer,
 
-                showPlayer,
-                setShowPlayer,
+    currentTime,
+    setCurrentTime,
 
-                currentTime,
-                setCurrentTime,
+    wasPlaying,
+    setWasPlaying,
 
             }}
         >

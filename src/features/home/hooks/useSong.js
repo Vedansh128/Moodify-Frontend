@@ -19,9 +19,11 @@ const {
     setLoading,
     showPlayer,
     setShowPlayer,
-
     currentTime,
     setCurrentTime,
+
+    wasPlaying,
+    setWasPlaying,
 
 } = useContext(SongContext);
 
@@ -145,6 +147,9 @@ return {
 
     currentTime,
     setCurrentTime,
+
+    wasPlaying,
+    setWasPlaying,
 
     handleGetSong,
     handleFavorite,

@@ -12,17 +12,21 @@ import "./player.scss";
 
 export default function Player() {
 
-    const {
-        songs,
-        currentSong,
-        favorites,
-        setCurrentSong,
-        handleFavorite,
-        showPlayer,
-        setShowPlayer,
-        currentTime,
-        setCurrentTime,
-    } = useSong();
+  const {
+    songs,
+    currentSong,
+    favorites,
+    setCurrentSong,
+    handleFavorite,
+    showPlayer,
+    setShowPlayer,
+    currentTime,
+    setCurrentTime,
+
+    wasPlaying,
+    setWasPlaying,
+
+} = useSong();
 
     const playerRef = useRef(null);
     const intervalRef = useRef(null);
@@ -115,7 +119,7 @@ export default function Player() {
 
         playerVars: {
 
-            autoplay: 1,
+            autoplay: 0,
             controls: 1,
             rel: 0,
             modestbranding: 1,
@@ -125,68 +129,73 @@ export default function Player() {
     };
 
 
-    function onReady(event) {
+  function onReady(event) {
 
-        playerRef.current = event.target;
+    playerRef.current = event.target;
 
-        /*
-         * Restore previous playback position.
-         */
-        if (currentTime > 0) {
+    // Restore previous position
+    if (currentTime > 0) {
 
-            event.target.seekTo(
-                currentTime,
-                true
-            );
-
-        }
-
-        /*
-         * Start tracking playback.
-         */
-        startTimeTracking();
+        event.target.seekTo(
+            currentTime,
+            true
+        );
 
     }
 
+    // Restore previous play/pause state
+    if (wasPlaying) {
 
-    function onStateChange(event) {
+        event.target.playVideo();
 
-        // Playing
-        if (event.data === 1) {
+    } else {
 
-            setPlaying(true);
+        event.target.pauseVideo();
 
-        }
+    }
 
-        // Paused
-        else if (event.data === 2) {
+    startTimeTracking();
 
-            setPlaying(false);
+}
 
-            /*
-             * Immediately save position when paused.
-             */
-            if (playerRef.current) {
 
-                const time =
-                    playerRef.current.getCurrentTime();
+   function onStateChange(event) {
 
-                setCurrentTime(time);
+    // Playing
+    if (event.data === 1) {
 
-            }
+        setPlaying(true);
+        setWasPlaying(true);
 
-        }
+    }
 
-        // Ended
-        else if (event.data === 0) {
+    // Paused
+    else if (event.data === 2) {
 
-            setPlaying(false);
+        setPlaying(false);
+        setWasPlaying(false);
 
-            setCurrentTime(0);
+        if (playerRef.current) {
+
+            const time =
+                playerRef.current.getCurrentTime();
+
+            setCurrentTime(time);
 
         }
 
     }
+
+    // Ended
+    else if (event.data === 0) {
+
+        setPlaying(false);
+        setWasPlaying(false);
+        setCurrentTime(0);
+
+    }
+
+}
 
 
     function togglePlay() {
