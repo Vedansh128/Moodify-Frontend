@@ -21,31 +21,25 @@ import "./player.scss";
 
 export default function Player() {
 
-    const {
+const {
+    songs,
+    currentSong,
+    favorites,
+    handleFavorite,
+    showPlayer,
+    setShowPlayer,
 
-        songs,
+    currentTime,
+    setCurrentTime,
 
-        currentSong,
+    wasPlaying,
+    setWasPlaying,
 
-        favorites,
+    resetPlayback,
+    setResetPlayback,
+    selectSong
 
-        setCurrentSong,
-
-        handleFavorite,
-
-        showPlayer,
-
-        setShowPlayer,
-
-        currentTime,
-
-        setCurrentTime,
-
-        wasPlaying,
-
-        setWasPlaying,
-
-    } = useSong();
+} = useSong();
 
 
     const playerRef = useRef(null);
@@ -171,12 +165,26 @@ export default function Player() {
 
 
 
-    function onReady(event) {
+function onReady(event) {
 
-        playerRef.current =
-            event.target;
+    playerRef.current = event.target;
 
+    if (resetPlayback) {
 
+        event.target.seekTo(0, true);
+
+        setCurrentTime(0);
+
+        setPlaying(false);
+        playingRef.current = false;
+
+        setResetPlayback(false);
+
+        if (wasPlaying) {
+            event.target.playVideo();
+        }
+
+    } else {
 
         if (currentTime > 0) {
 
@@ -187,23 +195,21 @@ export default function Player() {
 
         }
 
-
         if (wasPlaying) {
 
             event.target.playVideo();
 
-        }
-
-        else {
+        } else {
 
             event.target.pauseVideo();
 
         }
 
-
-        startTimeTracking();
-
     }
+
+    startTimeTracking();
+
+}
 
 
 
@@ -282,69 +288,47 @@ export default function Player() {
     }
 
 
-    function nextSong() {
+  function nextSong() {
 
-        if (!songs.length) return;
+    if (!songs.length) return;
 
-
-        const index =
-            songs.findIndex(
-                song =>
-                    song.videoId ===
-                    currentSong.videoId
-            );
-
-
-        const nextIndex =
-            (index + 1) %
-            songs.length;
-
-
-        setCurrentTime(0);
-
-
-        setWasPlaying(true);
-
-
-        setCurrentSong(
-            songs[nextIndex]
+    const index =
+        songs.findIndex(
+            song =>
+                song.videoId ===
+                currentSong.videoId
         );
 
-    }
+    const nextIndex =
+        (index + 1) % songs.length;
+
+    selectSong(
+        songs[nextIndex]
+    );
+
+}
 
 
-    function previousSong() {
+  function previousSong() {
 
-        if (!songs.length) return;
+    if (!songs.length) return;
 
-
-        const index =
-            songs.findIndex(
-                song =>
-                    song.videoId ===
-                    currentSong.videoId
-            );
-
-
-        const prevIndex =
-            (
-                index -
-                1 +
-                songs.length
-            ) % songs.length;
-
-
-        setCurrentTime(0);
-
-
-        setWasPlaying(true);
-
-
-        setCurrentSong(
-            songs[prevIndex]
+    const index =
+        songs.findIndex(
+            song =>
+                song.videoId ===
+                currentSong.videoId
         );
 
-    }
+    const prevIndex =
+        (index - 1 + songs.length) %
+        songs.length;
+
+    selectSong(
+        songs[prevIndex]
+    );
+
+}
 
 
     return (

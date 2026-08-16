@@ -7,10 +7,7 @@ export default function SongGrid() {
     const {
         songs,
         favorites,
-        setCurrentSong,
-        setShowPlayer,
-        setCurrentTime,
-        setWasPlaying,
+        selectSong,
         handleFavorite,
     } = useSong();
 
@@ -21,38 +18,10 @@ export default function SongGrid() {
     function isFavorite(song) {
 
         return favorites.some(
-            fav => fav.videoId === song.videoId
+            fav =>
+                fav.videoId ===
+                song.videoId
         );
-
-    }
-
-
-    function handleSongClick(song) {
-
-        /*
-         * A new song is selected.
-         * Always start it from the beginning.
-         */
-
-        setCurrentTime(0);
-
-        /*
-         * Automatically play the newly selected song.
-         */
-
-        setWasPlaying(true);
-
-        /*
-         * Set the new song.
-         */
-
-        setCurrentSong(song);
-
-        /*
-         * Show the player.
-         */
-
-        setShowPlayer(true);
 
     }
 
@@ -61,82 +30,70 @@ export default function SongGrid() {
 
         <div className="song-grid">
 
-            {
+            {songs.map(song => (
 
-                songs.map(song => (
+                <div
+                    key={song.videoId}
 
-                    <div
-                        key={song.videoId}
-                        className="song-card"
+                    className="song-card"
 
-                        onClick={() =>
-                            handleSongClick(song)
-                        }
+                    onClick={() =>
+                        selectSong(song)
+                    }
 
-                    >
+                >
 
-                        <img
-                            src={song.posterUrl}
-                            alt={song.title}
-                        />
-
-
-                        <div className="song-card__footer">
-
-                            <div>
-
-                                <h3>
-                                    {song.title}
-                                </h3>
-
-                                <p>
-                                    {song.artist}
-                                </p>
-
-                            </div>
+                    <img
+                        src={song.posterUrl}
+                        alt={song.title}
+                    />
 
 
-                            <button
+                    <div className="song-card__footer">
 
-                                className={`favorite-btn ${
-                                    isFavorite(song)
-                                        ? "active"
-                                        : ""
-                                }`}
+                        <div>
 
-                                onClick={(e) => {
+                            <h3>
+                                {song.title}
+                            </h3>
 
-                                    e.stopPropagation();
-
-                                    handleFavorite(song);
-
-                                }}
-
-                            >
-
-                                {
-
-                                    isFavorite(song)
-
-                                        ?
-
-                                        <FaHeart />
-
-                                        :
-
-                                        <FaRegHeart />
-
-                                }
-
-                            </button>
+                            <p>
+                                {song.artist}
+                            </p>
 
                         </div>
 
+
+                        <button
+
+                            className={`favorite-btn ${
+                                isFavorite(song)
+                                    ? "active"
+                                    : ""
+                            }`}
+
+                            onClick={(e) => {
+
+                                e.stopPropagation();
+
+                                handleFavorite(song);
+
+                            }}
+
+                        >
+
+                            {isFavorite(song)
+                                ? <FaHeart />
+                                : <FaRegHeart />
+                            }
+
+                        </button>
+
                     </div>
 
-                ))
+                </div>
 
-            }
+            ))}
 
         </div>
 

@@ -13,11 +13,19 @@ export const SongContextProvider = ({ children }) => {
 
     const [showPlayer, setShowPlayer] = useState(false);
 
-    // Current playback position
+    // Position of the currently playing song
     const [currentTime, setCurrentTime] = useState(0);
 
-    // Whether the song was playing before route change/remount
+    // Whether the current song was playing
     const [wasPlaying, setWasPlaying] = useState(false);
+
+    /*
+     * TRUE when a completely new song has been selected.
+     *
+     * This prevents the previous song's timestamp
+     * from being restored into the new song.
+     */
+    const [resetPlayback, setResetPlayback] = useState(false);
 
     return (
         <SongContext.Provider
@@ -43,6 +51,9 @@ export const SongContextProvider = ({ children }) => {
 
                 wasPlaying,
                 setWasPlaying,
+
+                resetPlayback,
+                setResetPlayback,
 
             }}
         >

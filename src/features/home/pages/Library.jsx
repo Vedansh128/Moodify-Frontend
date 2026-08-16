@@ -5,17 +5,11 @@ import { useSong } from "../hooks/useSong";
 
 export default function Library(){
 
-    const{
-
-        favorites,
-
-        loadFavorites,
-
-        setCurrentSong,
-
-        setShowPlayer,
-
-    }=useSong();
+ const {
+    favorites,
+    loadFavorites,
+    selectSong,
+} = useSong();
 
 useEffect(() => {
 
@@ -75,13 +69,11 @@ useEffect(() => {
 
                             key={song.videoId}
 
-                          onClick={() => {
+                       onClick={() => {
 
-                             setCurrentSong(song);
+                            selectSong(song);
 
-                             setShowPlayer(true);
-
-                            }}
+                                }}
 
                             style={{
 

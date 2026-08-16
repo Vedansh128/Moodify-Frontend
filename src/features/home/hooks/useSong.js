@@ -38,9 +38,53 @@ export const useSong = () => {
         wasPlaying,
         setWasPlaying,
 
+        resetPlayback,
+        setResetPlayback,
+
     } = useContext(SongContext);
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Select a completely new song
+    |--------------------------------------------------------------------------
+    */
+
+    function selectSong(song) {
+
+        /*
+         * Tell Player that this is a NEW song.
+         */
+        setResetPlayback(true);
+
+        /*
+         * New song starts at zero.
+         */
+        setCurrentTime(0);
+
+        /*
+         * New song should automatically play.
+         */
+        setWasPlaying(true);
+
+        /*
+         * Set the new song.
+         */
+        setCurrentSong(song);
+
+        /*
+         * Show player.
+         */
+        setShowPlayer(true);
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get songs according to detected mood
+    |--------------------------------------------------------------------------
+    */
 
     async function handleGetSong(result) {
 
@@ -53,35 +97,36 @@ export const useSong = () => {
                     ? result
                     : result.mood;
 
-            console.log("Detected Mood:", mood);
+            console.log(
+                "Detected Mood:",
+                mood
+            );
 
-            const response = await getSong({ mood });
+            const response =
+                await getSong({ mood });
 
-            console.log("Backend Response:", response);
+            console.log(
+                "Backend Response:",
+                response
+            );
 
-            const fetchedSongs = response.data || [];
+            const fetchedSongs =
+                response.data || [];
 
             setSongs(fetchedSongs);
 
 
             if (fetchedSongs.length > 0) {
 
-             
-
-                setCurrentTime(0);
-
-           
-
-                setWasPlaying(true);
-
-                setCurrentSong(fetchedSongs[0]);
-
-                setShowPlayer(true);
+                selectSong(
+                    fetchedSongs[0]
+                );
 
 
                 window.scrollTo({
 
-                    top: document.body.scrollHeight,
+                    top:
+                        document.body.scrollHeight,
 
                     behavior: "smooth",
 
@@ -109,12 +154,18 @@ export const useSong = () => {
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Load favorites
+    |--------------------------------------------------------------------------
+    */
 
     async function loadFavorites() {
 
         try {
 
-            const data = await getFavorites();
+            const data =
+                await getFavorites();
 
             setFavorites(
                 data.favoriteSongs || []
@@ -134,6 +185,11 @@ export const useSong = () => {
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Favorite / unfavorite
+    |--------------------------------------------------------------------------
+    */
 
     async function handleFavorite(song) {
 
@@ -160,6 +216,11 @@ export const useSong = () => {
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Search songs
+    |--------------------------------------------------------------------------
+    */
 
     async function handleSearch(query) {
 
@@ -173,23 +234,14 @@ export const useSong = () => {
             const data =
                 await searchSong(query);
 
-
             setSongs(data.data);
 
 
             if (data.data.length) {
 
-            
-
-                setCurrentTime(0);
-
-                setWasPlaying(true);
-
-                setCurrentSong(
+                selectSong(
                     data.data[0]
                 );
-
-                setShowPlayer(true);
 
             }
 
@@ -213,38 +265,29 @@ export const useSong = () => {
     }
 
 
-    return {
+  return {
+    loading,
+    songs,
+    currentSong,
+    showPlayer,
+    setShowPlayer,
+    favorites,
 
-        loading,
+    currentTime,
+    setCurrentTime,
 
-        songs,
+    wasPlaying,
+    setWasPlaying,
 
-        currentSong,
+    resetPlayback,
+    setResetPlayback,
 
-        showPlayer,
+    selectSong,
 
-        setShowPlayer,
-
-        favorites,
-
-
-        currentTime,
-        setCurrentTime,
-
-        wasPlaying,
-        setWasPlaying,
-
-
-        handleGetSong,
-
-        handleFavorite,
-
-        loadFavorites,
-
-        setCurrentSong,
-
-        handleSearch,
-
-    };
-
+    handleGetSong,
+    handleFavorite,
+    loadFavorites,
+    handleSearch,
 };
+
+}
